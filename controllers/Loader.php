@@ -17,7 +17,7 @@ class Loader
         }
 
         $file =$prefix_file . array_shift($arr) . '.php';
-       // echo $file;
+
         if (is_file($file)) {
             include_once $file;
         }

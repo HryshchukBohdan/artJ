@@ -1,4 +1,4 @@
-<?php // Контролер продуктов(преподов)
+<?php
 namespace controllers;
 
 class ErrorController extends Controller {
