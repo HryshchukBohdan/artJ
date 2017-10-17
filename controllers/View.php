@@ -1,4 +1,4 @@
-<?php // Контролер продуктов(преподов)
+<?php
 namespace controllers;
 
 class View
@@ -24,7 +24,7 @@ class View
         }
     }
 
-    public function setData(array $data)
+    public function setData(array $data = [])
     {
         foreach ($data as $key => $value){
 

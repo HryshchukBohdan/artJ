@@ -1,7 +1,5 @@
 <?php
 namespace controllers;
-//use config;
-//include_once '../config/config.php';
 
 class Router
 {
@@ -10,8 +8,10 @@ class Router
         $route = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 
         $routing = [
-//
-
+            "/" => ['IndexController', 'indexAction'],
+            "/ajaxValidEmail" => ['UserController', 'validEmailAction'],
+            "/reg" => ['UserController', 'regAction'],
+            "/ajaxTer" => ['TerritoryController', 'ajaxTerAction'],
         ];
         $is404 = true;
 

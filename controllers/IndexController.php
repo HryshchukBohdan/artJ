@@ -1,19 +1,17 @@
 <?php // Контролер главной странички
 namespace controllers;
 
-
+use models\TerritoryModel;
 
 class IndexController extends Controller {
 
     public function indexAction() {
 
+        $terObj = new TerritoryModel();
 
-
-//        $view = new View('main');
-
+        $ter = $terObj->getSection();
 
         $view = new View('user-form');
-        $view->setData([]);
-
+        $view->setData(['territory' => $ter]);
     }
 }

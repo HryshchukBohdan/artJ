@@ -1,64 +1,116 @@
 <!DOCTYPE html>
-<html >
+<html>
+
 <head>
     <meta charset="UTF-8">
-    <title>Sign Up Form with live validation</title>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet" href="web_l/css/chosen.css">
     <style type="text/css">
 
-        body {font-family:Arial, Sans-Serif;}
+        body {
+            font-family: Arial, Sans-Serif;
+        }
 
-        #container {width:300px; margin:0 auto;}
+        .has-error {
+            border-color: red;
+        }
 
-        /* Nicely lines up the labels. */
-        form label {display:inline-block; width:140px;}
+        .has-success {
+            border-color: aqua;
+        }
 
-        /* You could add a class to all the input boxes instead, if you like. That would be safer, and more backwards-compatible */
-        form input[type="text"],
-        form input[type="password"],
-        form input[type="email"] {width:160px;}
+        .input-field, .select-field {
+            position: relative;
+            left: 30%;
+        }
 
-        form .line {clear:both;}
-        form .line.submit {text-align:right;}
+        .hidden {
+            display: none;
+        }
 
+        form {
+            position: relative;
+            top: 50px;
+        }
 
-        position: absolute;
-        left: 40%;
+        form input[data-name="name"],
+        form input[data-name="email"] {
+            width:160px;
+            position: absolute;
+            left: 105px;
+        }
+
+        form button {
+            position: absolute;
+            left: 105px;
+        }
 
     </style>
 </head>
 
-
-
 <body>
 
-<div id="container">
-    <form>
-        <h1>Create Logon</h1>
-        <div class="line"><label for="username">Username *: </label><input type="text" id="username" /></div>
-        <div class="line"><label for="pwd">Password *: </label><input type="password" id="pwd" /></div>
-        <!-- You may want to consider adding a "confirm" password box also -->
-        <div class="line"><label for="surname">Surname *: </label><input type="text" id="surname" /></div>
-        <div class="line"><label for="other_names">Other Names *: </label><input type="text" id="names" /></div>
-        <div class="line"><label for="dob">Date of Birth *: </label><input type="text" id="dob" /></div>
-        <div class="line"><label for="email">Email *: </label><input type="email" id="email" /></div>
-        <!-- Valid input types: http://www.w3schools.com/html5/html5_form_input_types.asp -->
-        <div class="line"><label for="tel">Telephone: </label><input type="text" id="tel" /></div>
-        <div class="line"><label for="add">Address *: </label><input type="text" id="add" /></div>
-        <div class="line"><label for="ptc">Post Code *: </label><input type="text" id="ptc" /></div>
-        <div class="line submit"><input type="submit" value="Submit" /></div>
+<form>
+    <div class="input-field">
+        <p>ФИО* <input type="text" data-name="name" id="name" placeholder="ФИО*"></p>
+        <div id="error-name"></div>
+    </div>
+    <div class="input-field">
+        <p>E-mail* <input type="email" data-name="email" id="email" placeholder="E-mail*"></p>
+        <div id="error-email"></div>
+    </div>
+    <div class="select-field">
+        <p>
+            <select class="chosen-select" data-name="region" name="hero[]" id="region">
+                <option selected disabled value="">Выберетите адрес</option>
+                <?php foreach ($territory as $ter): ?>
+                    <option value="<?= $ter['ter_id']; ?>"><?= $ter['ter_name']; ?></option>
+                <?php endforeach; ?>
+            </select></p>
+        <div id="error-region"></div>
+    </div>
+    <div class="select-field hidden">
+        <p>
+            <select class="chosen-select" data-name="city" id="city">
+                <option selected disabled value="">Выберетите адрес</option>
+            </select></p>
+        <div id="error-city"></div>
+    </div>
+    <div class="select-field hidden">
+        <p>
+            <select class="chosen-select" data-name="city-region" id="city-region">
+                <option selected disabled value="">Выберетите адрес</option>
+            </select></p>
+        <div id="error-city-region"></div>
+    </div>
+    <div class="input-field">
+        <p><button type="button" id="send">Отправить</button></p>
+    </div>
+</form>
 
-        <p>Note: Please make sure your details are correct before submitting form and that all fields marked with * are completed!.</p>
-    </form>
+<!-- Modal -->
+<div class="modal fade" id="modalEmail" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Пользователь с таким email уже существует</h4>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hу ок...</button>
+            </div>
+        </div>
+    </div>
 </div>
 
-
-
-
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='web_l/js/main.js'></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src='node_modules/chosen-js/chosen.jquery.min.js'></script>
+<script type="text/javascript" src='web_l/js/main.js'></script>
 
 </body>
+
 </html>
