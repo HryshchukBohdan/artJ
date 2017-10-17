@@ -4,7 +4,7 @@ $(document).ready(function(){
 
     $('body').on('focusout', 'input[data-name=email]', function () {
 
-        var email = $('input[name=email]').val();
+        var email = $('input[data-name=email]').val();
 
         $.ajax({
             type: "POST",
@@ -13,16 +13,18 @@ $(document).ready(function(){
 
             success: function (data) {
 
-                $('#modalEmail .modal-body').html(data);
-                $('#modalEmail').modal('show');
+                if (data){
+                    $('#modalEmail .modal-body').html(data);
+                    $('#modalEmail').modal('show');
+                }
             }
         });
     });
 
     $('#region').change(function () {
 
+        valid($(this));
         var ter_id = $(this).val();
-        console.log(ter_id);
 
         $.ajax({
             type: "POST",
@@ -30,8 +32,6 @@ $(document).ready(function(){
             data: {ter_id: ter_id},
 
             success: function (data) {
-
-                console.log(data);
 
                 $('#city, #city-region').find('.del').remove();
                 $('#city').closest('.select-field').removeClass('hidden').find('option[value=""]').prop('selected', true).after(data);
@@ -43,6 +43,7 @@ $(document).ready(function(){
 
     $('#city').change(function () {
 
+        valid($(this));
         var ter_id = $(this).val();
 
         $.ajax({
@@ -52,13 +53,16 @@ $(document).ready(function(){
 
             success: function (data) {
 
-                console.log(data);
-
                 $('#city-region').find('.del').remove();
                 $('#city-region').closest('.select-field').removeClass('hidden').find('option[value=""]').prop('selected', true).after(data);
                 $(".chosen-select").trigger("chosen:updated");
             }
         });
+    });
+
+    $('#city-region').change(function () {
+
+        valid($(this));
     });
 
     var checkError = function (that, val, rv, e_rv) {
@@ -111,9 +115,6 @@ $(document).ready(function(){
         var name = $(_this).attr('data-name'),
             val = $(_this).val();
 
-        console.log(name);
-        console.log(val);
-
         switch (name) {
             case 'name':
                 validName(_this, val);
@@ -125,7 +126,6 @@ $(document).ready(function(){
                 validTer(_this, val);
                 break;
         } // end switch(...)
-
     }
 
     $('#send').bind('click', function(){
@@ -137,7 +137,7 @@ $(document).ready(function(){
             valid($(filter[i]));
         }
 
-        if (4) {
+        if (!$('.has-error').length) {
 
             var data = new FormData();
 

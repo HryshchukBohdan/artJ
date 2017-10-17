@@ -6,7 +6,6 @@ include_once 'config/db.php';
 
 class Model {
 
-// model';
     private $columns = [];
     private $pk_name;
     protected $result;
@@ -54,9 +53,6 @@ class Model {
 
         if ($field) {
 
-            $field = mysqli_real_escape_string ( Db::getConnect(), $field);
-            $value = mysqli_real_escape_string ( Db::getConnect(), $value);
-
             $query = "SELECT * FROM " . $this->table . " WHERE " . $field . " = " . $value;
 
             $this->result = mysqli_query(Db::getConnect(), $query);
@@ -64,8 +60,6 @@ class Model {
             return $this->createArray($this->result);
 
         } elseif ($value) {
-
-            $value = mysqli_real_escape_string ( Db::getConnect(), $value);
 
             $query = "SELECT * FROM " . $this->table . " WHERE " . $this->pk_name . " = " . $value;
 
@@ -82,9 +76,7 @@ class Model {
             $this->result = mysqli_query(Db::getConnect(), $query);
 
             return $this->createArray($this->result);
-
         }
-
     }
 
     public function getColomns() {
@@ -94,9 +86,12 @@ class Model {
 
     public function __construct($values = [])
     {
-        //$this->values = $values;
         $this->readStructure();
-        //self::$identityMap[$this->values[self::$pk_name]] = $this;
     }
 
+    public function create() {}
+
+    public function delete() {}
+
+    public function update() {}
 }

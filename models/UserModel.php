@@ -31,4 +31,23 @@ class UserModel extends Model {
         $insert->close();
         return $newId;
     }
+
+    public function userInfoByEmail($email) {
+
+        $email      = htmlspecialchars(mysqli_real_escape_string(Db::getConnect(), trim($email)));
+
+        $query = "SELECT u.*,
+                        t1.ter_name as region,
+                        t2.ter_name as city,
+                        t3.ter_name as city_reg
+                FROM " . $this->table . " u 
+                INNER JOIN t_koatuu_tree t1 ON SUBSTRING_INDEX(u.territory, '_', 1) = t1.ter_id 
+                INNER JOIN t_koatuu_tree t2 ON SUBSTRING_INDEX(SUBSTRING_INDEX(u.territory, '_', -2), '_', 1) = t2.ter_id
+                INNER JOIN t_koatuu_tree t3 ON SUBSTRING_INDEX(u.territory, '_', -1) = t3.ter_id
+                WHERE u.email = '" . $email . "'";
+
+        $this->result = mysqli_query(Db::getConnect(), $query);
+
+        return $this->createArray($this->result);
+    }
 }
