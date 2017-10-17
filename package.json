@@ -1,5 +1,5 @@
 {
-  "name": "test-3",
+  "name": "test-17.10.17",
   "version": "1.0.0",
   "description": "artJ - test",
   "main": "index.js",
@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/HryshchukBohdan/artJ/issues"
   },
-  "homepage": "https://github.com/HryshchukBohdan/artJ#readme"
+  "homepage": "https://github.com/HryshchukBohdan/artJ#readme",
+  "dependencies": {
+    "chosen-js": "^1.8.2"
+  }
 }
