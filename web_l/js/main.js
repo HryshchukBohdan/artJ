@@ -28,14 +28,14 @@ $(document).ready(function(){
 
         $.ajax({
             type: "POST",
-            url: '/ajaxTer',
+            url: '/ajaxTer/2',
             data: {ter_id: ter_id},
 
             success: function (data) {
 
                 $('#city, #city-region').find('.del').remove();
                 $('#city').closest('.select-field').removeClass('hidden').find('option[value=""]').prop('selected', true).after(data);
-                $('#city-region').closest('.select-field').addClass('hidden').find('option[value=""]').prop('selected', true);
+                $('#city-region').removeClass('is-active').closest('.select-field').addClass('hidden').find('option[value=""]').prop('selected', true);
                 $(".chosen-select").trigger("chosen:updated");
             }
         });
@@ -48,13 +48,19 @@ $(document).ready(function(){
 
         $.ajax({
             type: "POST",
-            url: '/ajaxTer',
+            url: '/ajaxTer/3',
             data: {ter_id: ter_id},
 
             success: function (data) {
 
                 $('#city-region').find('.del').remove();
-                $('#city-region').closest('.select-field').removeClass('hidden').find('option[value=""]').prop('selected', true).after(data);
+
+                if (data.length) {
+                    $('#city-region').addClass('is-active').closest('.select-field').removeClass('hidden').find('option[value=""]').prop('selected', true).after(data);
+                } else {
+                    $('#city-region').removeClass('is-active').removeClass('has-error').closest('.select-field').addClass('hidden').find('option[value=""]').prop('selected', true);
+                }
+
                 $(".chosen-select").trigger("chosen:updated");
             }
         });
@@ -122,7 +128,9 @@ $(document).ready(function(){
             case 'email':
                 validEmail(_this, val);
                 break;
+            case 'region':
             case 'city':
+            case 'city-region':
                 validTer(_this, val);
                 break;
         } // end switch(...)
@@ -130,7 +138,7 @@ $(document).ready(function(){
 
     $('#send').bind('click', function(){
 
-        var filter = ['#name', '#email', '#region', '#city-region', '#city'];
+        var filter = ['#name', '#email', '#region', '#city-region.is-active', '#city'];
 
         for (var i = 0; i < filter.length; i++) {
 

@@ -16,14 +16,13 @@ class TerritoryController extends Controller {
         $view->setData(['ter' => $ter, 'colomns' => $colomns]);
     }
 
-    public function ajaxTerAction() {
+    public function ajaxTerAction($level) {
 
         $terObj = new TerritoryModel;
 
-//        $id = htmlspecialchars($_POST['ter_id']);
-        $id = (int) $_POST['ter_id'];
+        $id = $_POST['ter_id'];
 
-        $ter = $terObj->getChildren($id);
+        $ter = $terObj->getChildren($id, (int) $level);
 
         $view = new View('temp-select');
         $view->setData(['territory' => $ter]);

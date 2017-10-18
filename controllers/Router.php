@@ -11,7 +11,7 @@ class Router
             "/" => ['IndexController', 'indexAction'],
             "/ajaxValidEmail" => ['UserController', 'validEmailAction'],
             "/reg" => ['UserController', 'regAction'],
-            "/ajaxTer" => ['TerritoryController', 'ajaxTerAction'],
+            "/ajaxTer/(\d+)" => ['TerritoryController', 'ajaxTerAction'],
         ];
         $is404 = true;
 

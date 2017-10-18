@@ -16,9 +16,11 @@ class TerritoryModel extends Model {
         return $this->createArray($this->result);
     }
 
-    public function getChildren($id) {
+    public function getChildren($id, $level) {
 
-        $query = "SELECT * FROM " . $this->table . " WHERE ter_pid = " . $id;
+        $id = htmlspecialchars(mysqli_real_escape_string(Db::getConnect(), trim($id)));
+
+        $query = "SELECT * FROM " . $this->table . " WHERE ter_pid = " . $id . " AND ter_level = " . $level;
 
         $this->result = mysqli_query(Db::getConnect(), $query);
 
