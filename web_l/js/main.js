@@ -2,25 +2,6 @@ $(document).ready(function(){
 
     $(".chosen-select").chosen({no_results_text: "Oops, nothing found!" , width: "270px"});
 
-    $('body').on('focusout', 'input[data-name=email]', function () {
-
-        var email = $('input[data-name=email]').val();
-
-        $.ajax({
-            type: "POST",
-            url: '/ajaxValidEmail',
-            data: {email: email},
-
-            success: function (data) {
-
-                if (data){
-                    $('#modalEmail .modal-body').html(data);
-                    $('#modalEmail').modal('show');
-                }
-            }
-        });
-    });
-
     $('#region').change(function () {
 
         valid($(this));
@@ -28,10 +9,12 @@ $(document).ready(function(){
 
         $.ajax({
             type: "POST",
-            url: '/ajaxTer/2',
+            url: '/ajaxTer',
             data: {ter_id: ter_id},
 
             success: function (data) {
+
+                // console.log(data);
 
                 $('#city, #city-region').find('.del').remove();
                 $('#city').closest('.select-field').removeClass('hidden').find('option[value=""]').prop('selected', true).after(data);
@@ -48,10 +31,12 @@ $(document).ready(function(){
 
         $.ajax({
             type: "POST",
-            url: '/ajaxTer/3',
+            url: '/ajaxTer',
             data: {ter_id: ter_id},
 
             success: function (data) {
+
+                // console.log(data);
 
                 $('#city-region').find('.del').remove();
 
@@ -165,7 +150,6 @@ $(document).ready(function(){
                 success: function (data) {
 
                     if (data) {
-                        $('#myModalLabel').text('').text('Что-то пошло не так...')
                         $('#modalEmail .modal-body').html(data);
                         $('#modalEmail').modal('show');
 

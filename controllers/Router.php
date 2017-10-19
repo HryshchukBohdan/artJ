@@ -9,9 +9,8 @@ class Router
 
         $routing = [
             "/" => ['IndexController', 'indexAction'],
-            "/ajaxValidEmail" => ['UserController', 'validEmailAction'],
             "/reg" => ['UserController', 'regAction'],
-            "/ajaxTer/(\d+)" => ['TerritoryController', 'ajaxTerAction'],
+            "/ajaxTer" => ['TerritoryController', 'ajaxTerAction'],
         ];
         $is404 = true;
 
